@@ -18,20 +18,20 @@ int main()
 	srand(time(NULL));
 
 	size_t layers = 2;
-	_STD vector<size_t> layers_neurons = { 3/*network input*/, 3/*first hidden input layer*/, 3 };
+	_STD vector<size_t> neurons_in_layer = { 3/*network input*/, 3/*first hidden input layer*/, 3 };
 
-	auto weights = _AI generate::random_weights(layers_neurons);
+	auto weights = _AI generate::random_weights(neurons_in_layer);
 
-	auto random_inputs = [inputs_counte = layers_neurons[0]]()
+	auto random_inputs = [inputs_count = neurons_in_layer[0]]()
 	{
-		_STD vector<double> inputs(inputs_counte);
+		_STD vector<double> inputs(inputs_count);
 		inputs[0] = random_tool::random(0, 100.1); // avg_plays
 		inputs[1] = random_tool::random(0, inputs[0]); // wins
 		inputs[2] = random_tool::random(0, 1000.1); // fans
 
 		return _STD move(inputs);
 	};
-	auto inputs = _AI generate::random_inputs(layers_neurons[0], random_inputs);
+	auto inputs = _AI generate::random_inputs(neurons_in_layer[0], random_inputs);
 
 	// get network prediction for each input row
 	auto prediction = _AI neuron_network(inputs, weights);
